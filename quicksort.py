@@ -20,6 +20,7 @@ def quicksort(arr,start,end):
         pivot = partition(arr,start,end)
         # the two subarrays left and right to the pivot doesn't have to be sorted
         # by recursively calling quicksort, eventually the left and right subarray will be sorted
+        # make sure to exclude the pivot element in either of the subarray
         quicksort(arr,start,pivot - 1)
         quicksort(arr,pivot+1,end)
         return True
