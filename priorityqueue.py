@@ -51,8 +51,9 @@ def increase_key(arr,i,k):
         i = parent_i
         parent_i = int((i-1)/2)
 
+# create one more element at the end, and then increase its key to the value wanted to be inserted
 def insert(arr,k):
-    arr.append(k)
+    arr.append(0)
     increase_key(arr,len(arr)-1,k)
 
 def main():
