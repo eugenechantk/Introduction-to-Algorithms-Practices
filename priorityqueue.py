@@ -31,17 +31,34 @@ def max_heapify(arr,i,heap_size):
 
     return True
 
-def heapsort(arr):
-    heapsize = len(arr)-1
-    arr = build_max_heap(arr)
-    for i in range(len(arr)-1):
-        arr[0], arr[heapsize - i] = arr[heapsize - i], arr[0]
-        # removing the last element out of the heap by reducing the heapsize by 1
-        max_heapify(arr,0,heapsize - i - 1)
+def heap_maximum(arr):
+    return arr[0]
+
+def extract_max(arr):
+    heap_size = len(arr)-1
+    arr[0], arr[heap_size] = arr[heap_size], arr[0]
+    # only need to max_heapify once because only one node is swapped at index 0
+    max_heapify(arr,0,heap_size - 1)
+    arr.pop(heap_size)
+
+def increase_key(arr,i,k):
+    arr[i] = k
+    parent_i = int((i-1)/2)
+    # i > 0; make sure that the node is not at the root of the heap
+    while arr[i] >= arr[parent_i] and i > 0:
+        # no need to max_heapify here; because the parent node will be bigger than the children node anyways; satisfying the requirement for a heap
+        arr[i], arr[parent_i] = arr[parent_i], arr[i]
+        i = parent_i
+        parent_i = int((i-1)/2)
+
+def insert(arr,k):
+    arr.append(k)
+    increase_key(arr,len(arr)-1,k)
 
 def main():
     test_arr = [4,1,3,2,16,9,10,14,8,7]
-    heapsort(test_arr)
+    build_max_heap(test_arr)
+    insert(test_arr,100)
     return True
 
 main()
