@@ -43,10 +43,9 @@ class QueueArray:
         return self.head - self.tail
 
     def enqueue(self,ele):
-        if self.tail < self.size()
+        if self.tail < self.size():
             self.q_arr[self.tail] = ele
             self.tail += 1
-            self.size += 1
         else: raise Exception('Queue is full')
     
     def dequeue(self):
@@ -55,7 +54,6 @@ class QueueArray:
         else:
             dequeue_ele = self.q_arr[self.head]
             self.head += 1
-            self.size -= 1
             return dequeue_ele
 
     def reset(self):
