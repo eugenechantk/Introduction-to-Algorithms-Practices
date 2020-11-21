@@ -40,7 +40,7 @@ class QueueArray:
         self.q_arr = [None] * cap
 
     def size(self):
-        return self.head = self.tail
+        return self.head - self.tail
 
     def enqueue(self,ele):
         if self.tail < self.size()
