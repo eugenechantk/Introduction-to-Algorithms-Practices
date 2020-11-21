@@ -24,6 +24,7 @@ class CircularQueue:
         else:
             dequeue_ele = self.q_arr[self.head]
             self.head = (self.head + 1) % self.MaxSize
+        return dequeue_ele
 
 queue = CircularQueue(10)
 queue.enqueue(10)
