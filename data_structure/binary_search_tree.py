@@ -209,6 +209,15 @@ class BST:
                 node = previous_biggest
                 previous_biggest = node.parent
             return previous_biggest.key
+            
+    def is_binary_search_tree(self,node=None):
+        if node is None:
+            node = self.root
+        
+        if node.left.key <= node.key and node.right.key > node.key:
+            
+        else:
+            return False
 
 bst = BST()
 bst.insert(10)
@@ -231,4 +240,12 @@ print (bst.get_max())
 # bst.delete_value(10)
 print (bst.get_successor(9))
 print (bst.get_predecessor(7))
+""" 
+Building an invalid BST
+"""
+right_node = bst.root.right.left
+bst.root.right.left = Node(9,bst.root,right_node,None)
+right_node.parent = bst.root.right.left
+
+print (bst.is_binary_search_tree())
 print ('Done')
