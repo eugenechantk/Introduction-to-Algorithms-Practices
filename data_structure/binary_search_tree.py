@@ -169,19 +169,25 @@ class BST:
         if key == self.get_max(): # escape case if key is the maximum key in the BST
             return -1
         else:
-            next_biggest = self.root
-            while next_biggest.key != key:
-                if key < next_biggest.key:
-                    next_biggest = next_biggest.left
-                elif key > next_biggest.key:
-                    next_biggest = next_biggest.right
+            node = self.root
+            while key != node.key: # find the node with the key by traversing the BST
+                if key < node.key:
+                    node = node.left
+                elif key > node.key:
+                    node = node.right
             
-            if next_biggest.right is None:
-                next_biggest = next_biggest.parent
-            else:
-                next_biggest = next_biggest.right
-                while next_biggest.left is not None:
-                    next_biggest = next_biggest.left
+            # if the node has right subtree, just need to find the smallest key in the right subtree, because all keys in right subtree are bigger than the node
+            if node.right is not None:
+                return self.get_min(node.right)
+            
+            # if the node has no right subtree...
+            next_biggest = node.parent
+            # see if the node is the biggest member of k-i level subtree
+            # if yes, need to traverse up a level to find the smallest node that is bigger than the node
+            # if no, that means the parent of k-i level subtree is bigger than the node
+            while next_biggest is not None and node == next_biggest.right: 
+                node = next_biggest
+                next_biggest = node.parent
             return next_biggest.key
 
 bst = BST()
@@ -202,6 +208,6 @@ bst.insert(40)
 print (bst.get_height())
 print (bst.get_min())
 print (bst.get_max())
-bst.delete_value(10)
-print (bst.get_successor(15))
+# bst.delete_value(10)
+print (bst.get_successor(9))
 print ('Done')
