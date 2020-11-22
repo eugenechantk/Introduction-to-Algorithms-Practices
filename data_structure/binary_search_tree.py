@@ -190,6 +190,26 @@ class BST:
                 next_biggest = node.parent
             return next_biggest.key
 
+    def get_predecessor(self,key):
+        if key == self.get_min():
+            return -1
+        else:
+            node = self.root
+            while key != node.key: # find the node with the key by traversing the BST
+                if key < node.key:
+                    node = node.left
+                elif key > node.key:
+                    node = node.right
+            
+            if node.left is not None:
+                return self.get_max(node.left)
+            
+            previous_biggest = node.parent
+            while previous_biggest is not None and node == previous_biggest.left:
+                node = previous_biggest
+                previous_biggest = node.parent
+            return previous_biggest.key
+
 bst = BST()
 bst.insert(10)
 bst.insert(20)
@@ -210,4 +230,5 @@ print (bst.get_min())
 print (bst.get_max())
 # bst.delete_value(10)
 print (bst.get_successor(9))
+print (bst.get_predecessor(7))
 print ('Done')
