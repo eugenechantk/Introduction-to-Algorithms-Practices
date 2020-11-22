@@ -12,18 +12,17 @@ class BST:
         self.height = 0       
         self.repr_arr = []
 
-    def __len__(self,current=None):
+    def __len__(self,current=None,count=0):
         if current is None:
             current = self.root
-            self.count = 0 # initialize count to erase previous record
         
         if current is not None:
-            self.count += 1 # update class variable, rather than create a variable within this recursion as it does not carry forward at the end
+            count += 1 
             if current.left is not None:
-                self.__len__(current.left)
+                count = self.__len__(current.left,count)
             if current.right is not None:
-                self.__len__(current.right)
-        return self.count
+                count = self.__len__(current.right,count)
+        return count
 
     def __repr__(self,current=None):
         if current is None:
@@ -210,14 +209,23 @@ class BST:
                 previous_biggest = node.parent
             return previous_biggest.key
             
-    def is_binary_search_tree(self,node=None):
+    def select(self,index,node=None):
         if node is None:
             node = self.root
+
+        left_size = self.__len__(node.left)
+        if (node.left is None and node.right is None) and (index - 1 == 0): # case 1: traversed to the n number of leaves
+            return node
+        elif index - 1 == left_size: # case 2: the nth item is not in the left subtree, nor the right subtree -> nth item is the parent
+            return node
+        elif left_size >= index: # case 3: the nth item is within the left subtree
+            return (self.select(index,node.left))
+        else: # case 4: the nth item is within the right subtree
+            return (self.select(index - left_size - 1,node.right))
+
         
-        if node.left.key <= node.key and node.right.key > node.key:
-            
-        else:
-            return False
+
+
 
 bst = BST()
 bst.insert(10)
@@ -234,18 +242,18 @@ bst.insert(12)
 bst.insert(12)
 bst.insert(17)
 bst.insert(40)
+print (len(bst))
 print (bst.get_height())
 print (bst.get_min())
 print (bst.get_max())
 # bst.delete_value(10)
 print (bst.get_successor(9))
 print (bst.get_predecessor(7))
+print (bst.select(5))
 """ 
 Building an invalid BST
-"""
 right_node = bst.root.right.left
 bst.root.right.left = Node(9,bst.root,right_node,None)
 right_node.parent = bst.root.right.left
-
-print (bst.is_binary_search_tree())
+"""
 print ('Done')
