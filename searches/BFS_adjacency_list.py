@@ -55,7 +55,7 @@ class BFS_Graph_AdjList:
             if vertex == v2: # that means you have reached the destination vertex; since next queue adds all the vertex that are before the destination vertex
                 path = []
                 while vertex in parent: # if the vertex has a parent, that means it has not reached the starting vertex yet; keep on finding its parent vertex
-                    path.append(vertex) # add the current vertex into the path first, before going to its parent vertex
+                    path.insert(0,vertex) # add the current vertex into the path first, before going to its parent vertex
                     vertex = parent[vertex]
                 return path
             if vertex in visited: # skip the vertex that has already been reached, because another vertex already added this vertix to the next queue
